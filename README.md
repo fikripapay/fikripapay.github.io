@@ -1,9 +1,10 @@
 # My Personal Website
 Abdul Fikri | Papay
+
 Created on : January 28, 2024
 
 ## About
-Website ini merupakan website pribadi saya. yang di dalam website ini terdapat beberapa informasi pribadi saya seperti, Sosial Media, Project/Portfolio, Pengalaman Kerja/Magang, dan lain-lainya.
+This website is my personal website where various personal information such as social media, projects/portfolio, work/internship experiences, and more are presented.
 
 ### Development Tools
 [![git](https://badgen.net/badge/icon/git?icon=git&label)](https://git-scm.com) [![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com) [![Visual Studio Code](https://img.shields.io/badge/--007ACC?logo=visual%20studio%20code&logoColor=ffffff)](https://code.visualstudio.com/) ![Terminal](https://badgen.net/badge/icon/terminal?icon=terminal&label) 
