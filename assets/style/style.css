@@ -1,0 +1,60 @@
+/* My Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Young+Serif&display=swap');
+
+/* font-family: 'Hanken Grotesk', sans-serif;
+font-family: 'Young Serif', serif; */
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+/* Container | Parent */
+.container {
+  width: 50%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+/* End Container */
+
+/* Header */
+.profile {
+  display: flex;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  border: 3px solid auto;
+  border: 2px solid black;
+}
+
+.profile img {
+  height: 128px;
+  width: 128px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.name {
+  display: block;
+  text-align: center;
+}
+
+.name h1 {
+  font-family: 'Young Serif', serif;
+}
+
+.name span:first-child {
+  padding-bottom: 20px;
+}
+
+.name a{
+  display: iflex;
+  
+  text-decoration: none;
+}
+/* End Profile */
