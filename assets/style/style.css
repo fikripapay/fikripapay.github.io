@@ -170,7 +170,7 @@ main h3 {
 
 /* End Projects */
 
-/* Certicates */
+/* Certicates
 
 .certificates {
   display: grid;
@@ -200,7 +200,7 @@ main h3 {
 
 .certif img:hover {
   filter: none;
-}
+} */
 
 /* End Certificates */
 
@@ -218,8 +218,8 @@ footer {
   }
 
   .links,
-  .projects,
-  .certificates {
+   .projects/*,
+  .certificates*/ {
     grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   }
 
@@ -233,7 +233,7 @@ footer {
     width: 90%;
   }
 
-  .certif img {
+  /* .certif img {
     filter: none;
-  }
+  } */
 }
