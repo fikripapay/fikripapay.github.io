@@ -1,0 +1,92 @@
+/* My Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: hsl(0, 0%, 8%);
+}
+
+/* Main */
+
+.container {
+  width: 90%;
+  margin: 50px auto;
+  padding: 40px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  background-color: hsl(0, 0%, 12%);
+}
+
+.profile {
+  margin: 0 auto 30px;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile img {
+  height: 120px;
+  width: 120px;
+}
+
+.detail {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.detail h1 {
+  padding-bottom: 10px;
+  font-weight: 700;
+  color: hsl(0, 0%, 100%);
+}
+
+.detail h3 {
+  font-weight: 700;
+  color: hsl(75, 94%, 57%);
+  padding-bottom: 30px;
+}
+
+.detail span {
+  color: hsl(0, 0%, 100%);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list a{
+  text-align: center;
+  font-weight: 600;
+  color: hsl(0, 0%, 100%);
+  margin-bottom: 20px;
+  padding: 20px 0;
+  background-color: hsl(0, 0%, 20%);
+  text-decoration: none;
+  border-radius: 15px;
+}
+
+.list a:last-child {
+  margin-bottom: 0;
+}
+
+.list a:hover {
+  color: hsl(0, 0%, 20%);
+  background-color: hsl(75, 94%, 57%);
+}
+
+/* Breakpoint */
+
+/* Responsive Phones */
+@media screen and (min-width: 767px) {
+  .container {
+    width: 50%;
+  }
+}
+

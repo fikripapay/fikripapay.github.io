@@ -1,0 +1,174 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Hanken Grotesk', sans-serif;
+  background-color: hsl(221, 100%, 96%);
+}
+
+.container {
+  display: flex;
+  width: 50%;
+  margin: 50px auto;
+  flex-direction: row;
+  background-color: hsl(0, 0%, 100%);
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 30px;
+  color: hsl(0, 0%, 100%);
+  text-align: center;
+  border-radius: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.result h3 {
+  opacity: 0.7;
+  padding-bottom: 10px;
+}
+
+.circle {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.circle .teks {
+  margin: auto;
+}
+
+.circle .teks h1 {
+  line-height: 20px;
+}
+
+.circle .teks span {
+  opacity: .5;
+  font-size: 10px;
+}
+
+.detail {
+  padding-top: 10px;
+}
+
+.detail h1 {
+  font-size: 1.5rem;
+}
+
+.detail p {
+  opacity: .7;
+}
+
+.result h1 {
+  padding-top: 0;
+}
+
+.summary {
+  display: flex;
+  width: 40%;
+  margin: 0 auto;
+  padding: 30px 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-items: start;
+}
+
+.summary h3 {
+  padding-bottom: 20px;
+}
+
+.components {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 10px 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.components.reaction {
+  background-color: hsla(0, 100%, 67%, .1);
+}
+
+.components.memory {
+  background-color: hsla(39, 100%, 56%, .1);
+}
+
+.components.verbal {
+  background-color: hsla(166, 100%, 37%, .1);
+}
+
+.components.visual {
+  background-color: hsla(234, 85%, 45%, .1);
+}
+
+.icon.reaction {
+  color: hsl(0, 100%, 67%);
+  display: flex;
+}
+
+.icon.memory {
+  color: hsl(39, 100%, 56%);
+  display: flex;
+}
+
+.icon.verbal {
+  color: hsl(166, 100%, 37%);
+  display: flex;
+}
+
+.icon.visual {
+  color: hsl(234, 85%, 45%);
+  display: flex;
+}
+
+.icon img {
+  margin-right: 5px;
+}
+
+button {
+  padding: 15px 0;
+  border-radius: 30px;
+  background-color: hsl(224, 30%, 27%);
+  color: hsl(0, 0%, 100%);
+}
+
+button:hover {
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);;
+}
+
+/* Responsive Phones */
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 100%;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .result {
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .summary {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
