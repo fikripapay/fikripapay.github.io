@@ -182,4 +182,8 @@ body {
     flex-direction: column;
     align-items: center;
   }
+
+  .star {
+    margin: 0 0 10px;
+  }
 }
