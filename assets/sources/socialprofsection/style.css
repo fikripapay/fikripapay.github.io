@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px;
+}
+
+.container {
+  width: 80%;
+  margin: 50px auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.title {
+  width: 40%;
+}
+
+.title h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: hsl(300, 86%, 23%);
+  margin-bottom: 20px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.list {
+  width: max-content;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  margin-right: 20%;
+  font-weight: 700;
+  color: hsl(300, 86%, 23%);
+  background-color: hsla(333, 80%, 67%, .2);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.rating .list:nth-child(2) {
+  margin-right: 10%;
+}
+
+.rating .list:last-child {
+  margin-right: 0;
+}
+
+.star {
+  margin-right: 20px;
+}
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card {
+  width: 30%;
+  padding: 20px;
+  color: hsl(300, 24%, 96%);
+  background-color: hsl(300, 86%, 23%);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.name {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.name img {
+  width: 64px;
+  height: 64px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.verified {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.verified h4 {
+  font-weight: 700;
+}
+
+.verified span {
+  color: rgb(195, 0, 255);
+}
+
+/* Breakpoint */
+@media screen and (max-width: 767px) {
+  .container {
+    width: 90%;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .rating {
+    width: 100%;
+    align-items: unset;
+    justify-content: unset;
+  }
+
+  .list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: unset;
+    padding: 10px 0;
+    margin: 0 0 20px;
+    border-radius: 10px;
+  }
+  
+  .rating .list:nth-child(2) {
+    margin-right: 0;
+  }
+  
+  .rating .list:last-child {
+    margin: 0;
+  }
+  
+  .star {
+    margin: 0 0 10px;
+  }
+
+  .comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .card {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: hsl(300, 24%, 96%);
+    background-color: hsl(300, 86%, 23%);
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .comment .card:last-child {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    width: 90%;
+  }
+
+  .list {
+    flex-direction: column;
+    align-items: center;
+  }
+}
