@@ -217,6 +217,16 @@ footer {
     width: 80%;
   }
 
+  .profile:hover,
+  .locate:hover,
+  .card:hover {
+    transform: none;
+  }
+
+  .list:hover {
+    outline: none;
+  }
+
   .links,
    .projects/*,
   .certificates*/ {
