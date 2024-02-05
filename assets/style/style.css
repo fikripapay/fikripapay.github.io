@@ -1,5 +1,5 @@
 /* My Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Young+Serif&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Young+Serif&display=swap");
 
 /* font-family: 'Hanken Grotesk', sans-serif;
 font-family: 'Young Serif', serif; */
@@ -10,7 +10,7 @@ font-family: 'Young Serif', serif; */
 }
 
 body {
-  font-family: 'Hanken Grotesk', sans-serif;
+  font-family: "Hanken Grotesk", sans-serif;
 }
 
 /* Container | Parent */
@@ -32,7 +32,7 @@ body {
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   cursor: pointer;
-} 
+}
 
 .profile:hover {
   transform: scale(1.1);
@@ -49,13 +49,13 @@ body {
 }
 
 .name h1 {
-  font-family: 'Young Serif', serif;
+  font-family: "Young Serif", serif;
   font-size: 1.5rem;
 }
 
 .name h4 {
   font-weight: normal;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .locate {
@@ -76,17 +76,17 @@ body {
   justify-content: center;
   text-decoration: none;
   color: #000;
-  opacity: .7;
+  opacity: 0.7;
 }
 /* End Profile */
 
 /* Main */
 main h3 {
-  font-family: 'Young Serif', serif;
+  font-family: "Young Serif", serif;
   font-weight: 400;
   text-align: center;
   margin-bottom: 10px;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 /* Links */
@@ -116,7 +116,7 @@ main h3 {
 }
 
 .card span {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .card:hover {
@@ -148,7 +148,7 @@ main h3 {
 
 .list span {
   font-size: 10px;
-  opacity: .7;
+  opacity: 0.7;
   margin-bottom: 10px;
 }
 
@@ -206,9 +206,76 @@ main h3 {
 
 /* Foooter */
 footer {
-  font-family: 'Young Serif', serif;
+  font-family: "Young Serif", serif;
   text-align: center;
-  opacity: .5;
+  opacity: 0.5;
+  padding: 1rem;
+}
+
+.develop {
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+}
+
+.load {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: greenyellow greenyellow transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #ff3d00 #ff3d00;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 32px;
+  height: 32px;
+  border-color: lightblue lightblue transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }
 
 /* Breakpoint */
