@@ -1,154 +1,818 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abdul Fikri | My Personal Website</title>
-    <link rel="stylesheet" href="assets/style/style.css" />
+    <title>Kalkulator SMM Pro - Ratio Protection</title>
+    <!-- Import Google Fonts: Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-light: #818cf8;
+        --primary-dark: #3730a3;
+        --secondary: #6366f1;
+        --accent: #f59e0b;
+        --bg-body: #0f172a;
+        --bg-card: #ffffff;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --border-color: #e2e8f0;
+        --success: #10b981;
+        --danger: #ef4444;
+        --radius-lg: 20px;
+        --radius-md: 12px;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md:
+          0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg:
+          0 20px 25px -5px rgb(0 0 0 / 0.15), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        line-height: 1.6;
+        padding: 40px 20px;
+        background-image:
+          radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+          radial-gradient(at 50% 0%, hsla(225, 39%, 20%, 1) 0, transparent 50%),
+          radial-gradient(at 100% 0%, hsla(339, 49%, 20%, 1) 0, transparent 50%);
+        background-attachment: fixed;
+        min-height: 100vh;
+        overflow-x: hidden;
+        animation: gradientBG 15s ease infinite;
+        background-size: 200% 200%;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        animation: fadeInPage 0.8s ease-out forwards;
+      }
+
+      @keyframes fadeInPage {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+        color: white;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        margin-bottom: 12px;
+        background: linear-gradient(to right, #ffffff, #a5b4fc, #ffffff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shineText 5s linear infinite;
+      }
+
+      @keyframes shineText {
+        to {
+          background-position: 200% center;
+        }
+      }
+
+      header p {
+        color: #c7d2fe;
+        font-size: 1.2rem;
+        font-weight: 400;
+        opacity: 0.8;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        margin-bottom: 40px;
+        transition: transform 0.3s ease;
+      }
+
+      .glass-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+
+      .grid-inputs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      label {
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-prefix {
+        position: absolute;
+        left: 18px;
+        color: var(--text-muted);
+        font-weight: 700;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 16px 20px;
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-md);
+        font-size: 1.05rem;
+        transition: all 0.3s ease;
+        outline: none;
+        background: #f8fafc;
+      }
+
+      input.with-prefix {
+        padding-left: 52px;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.1);
+      }
+
+      .actions {
+        display: flex;
+        gap: 20px;
+        margin-top: 40px;
+      }
+
+      button {
+        cursor: pointer;
+        padding: 16px 32px;
+        border-radius: var(--radius-md);
+        font-weight: 800;
+        font-size: 1rem;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        letter-spacing: 0.03em;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        flex: 2;
+        box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+        transform: none !important;
+      }
+
+      .btn-primary::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transform: rotate(45deg);
+        transition: 0.5s;
+        display: block;
+      }
+
+      .btn-primary:hover:not(:disabled)::after {
+        left: 120%;
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        transform: scale(1.03) translateY(-3px);
+        box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+      }
+
+      .btn-outline {
+        background-color: white;
+        border: 2px solid var(--border-color);
+        color: var(--text-muted);
+        flex: 1;
+      }
+
+      .btn-outline:hover {
+        background-color: #f1f5f9;
+        color: var(--text-main);
+        border-color: var(--text-muted);
+        transform: translateY(-2px);
+      }
+
+      .spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 0.8s linear infinite;
+        display: none;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .summary-banner {
+        background: rgba(238, 242, 255, 0.9);
+        border-left: 6px solid var(--primary);
+        padding: 24px 32px;
+        border-radius: var(--radius-md);
+        margin-bottom: 30px;
+        font-size: 1rem;
+        box-shadow: var(--shadow-md);
+        animation: slideInLeft 0.5s ease-out;
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .summary-banner strong {
+        color: var(--primary-dark);
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      .results-card {
+        background: white;
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        box-shadow: var(--shadow-lg);
+        animation: fadeInScale 0.6s ease-out;
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .table-header h2 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 30px;
+      }
+
+      .table-container {
+        overflow-x: auto;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+        background: #fafafa;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+        min-width: 900px;
+      }
+
+      th {
+        background-color: #f1f5f9;
+        padding: 20px 16px;
+        font-weight: 800;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-align: left;
+        border-bottom: 2px solid var(--border-color);
+      }
+
+      td {
+        padding: 18px 16px;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+        transition: background 0.2s ease;
+      }
+
+      tr.row-anim {
+        opacity: 0;
+        transform: translateY(15px);
+        animation: rowAppear 0.5s ease-out forwards;
+      }
+
+      @keyframes rowAppear {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      tr:hover td {
+        background-color: rgba(79, 70, 229, 0.04);
+      }
+
+      .badge-fee {
+        background: #fee2e2;
+        color: var(--danger);
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .badge-adj {
+        background: #dcfce7;
+        color: #15803d;
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        box-shadow: 0 2px 4px rgba(16, 185, 129, 0.1);
+      }
+
+      .badge-ratio {
+        background: #fef3c7;
+        color: #92400e;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .price-final {
+        font-weight: 900;
+        font-size: 1.15rem;
+        color: var(--primary);
+      }
+
+      .profit-text {
+        font-weight: 700;
+        color: var(--success);
+      }
+
+      #toast {
+        visibility: hidden;
+        min-width: 300px;
+        background-color: #1e293b;
+        color: #fff;
+        text-align: center;
+        border-radius: 60px;
+        padding: 18px 30px;
+        position: fixed;
+        z-index: 1000;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        font-size: 1rem;
+        font-weight: 600;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      #toast.show {
+        visibility: visible;
+        opacity: 1;
+        bottom: 50px;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 20px 10px;
+        }
+        header h1 {
+          font-size: 2.2rem;
+        }
+        .glass-card {
+          padding: 25px;
+        }
+        .actions {
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <header>
-        <div class="profile">
-          <img src="assets/images/profil.jpg" alt="Profil" />
-        </div>
-        <div class="name">
-          <h1>Abdul Fikri</h1>
-          <h4>papay</h4>
-          <h4>Web Developer</h4>
-          <div class="locate">
-            <a href="https://maps.app.goo.gl/N5sExkosi1vRgrgh9" target="_blank">
-              <img src="assets/images/pin.png" alt="Location" />
-              <span>Bogor, Indonesia</span>
-            </a>
-          </div>
-        </div>
+        <h1>Kalkulator SMM Pro</h1>
+        <p>Intelligence Pricing System for Professional Sellers</p>
       </header>
-      <main>
-        <div class="links">
-          <a href="https://instagram.com/papayxf/" target="_blank">
-            <div class="card">
-              <img src="assets/images/instagram.png" alt="Github Logo" />
-              <span>Instagram</span>
+
+      <div class="glass-card">
+        <div class="grid-inputs">
+          <div class="form-group">
+            <label for="supplierPrice">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+              Harga Supplier (per 1.000)
+            </label>
+            <div class="input-wrapper">
+              <span class="input-prefix">Rp</span>
+              <input
+                type="text"
+                id="supplierPrice"
+                class="with-prefix"
+                placeholder="Contoh: 2.500"
+                value=""
+                oninput="handleInputRupiah(this)"
+              />
             </div>
-          </a>
-          <a href="https://github.com/fikripapay/" target="_blank">
-            <div class="card">
-              <img src="assets/images/github.png" alt="Github Logo" />
-              <span>Github</span>
-            </div>
-          </a>
-          <a href="https://www.linkedin.com/in/abdulfikri/">
-            <div class="card">
-              <img src="assets/images/linkedin.png" alt="Github Logo" />
-              <span>LinkedIn</span>
-            </div>
-          </a>
+          </div>
+          <div class="form-group">
+            <label for="categorySelect">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+              Tingkat Kuantitas
+            </label>
+            <select id="categorySelect">
+              <option value="cat1">Kategori 1 (Eceran: 100 - 1.000)</option>
+              <option value="cat2" selected>
+                Kategori 2 (Grosir: 1.000 - 10.000)
+              </option>
+            </select>
+          </div>
         </div>
-        <h3 class="develop">under development</h3>
-        <div class="load">
-          <span class="loader"></span>
+
+        <div class="actions">
+          <button
+            class="btn-primary"
+            id="btnCalculate"
+            onclick="handleCalculation()"
+          >
+            <span id="btnText">HITUNG HARGA JUAL</span>
+            <div class="spinner" id="btnLoader"></div>
+            <svg
+              id="btnIcon"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              ></path>
+            </svg>
+          </button>
+          <button class="btn-outline" onclick="resetForm()">REFRESH</button>
         </div>
-        <!-- <div class="projects">
-        <a href="assets/sources/simpleomeletterecipe/index.html" target="_blank">
-          <div class="list">
-            <span>January 25, 2024</span>
-            <figure>
-              <img src="assets/images/list1.png" alt="Simple Omelette Recipe">
-              <figcaption>Simple Omelette Recipe</figcaption>
-            </figure>
+      </div>
+
+      <div id="resultsArea" style="display: none">
+        <div class="summary-banner" id="summaryBox"></div>
+
+        <div class="results-card">
+          <div class="table-header">
+            <h2>Rincian Pricing</h2>
           </div>
-        </a>
-        <a href="assets/sources/socialprofile/index.html" target="_blank">
-          <div class="list">
-            <span>January 26, 2024</span>
-            <figure>
-              <img src="assets/images/list2.png" alt="Social Profile">
-              <figcaption>Social Profile</figcaption>
-            </figure>
+          <div class="table-container">
+            <table id="resultsTable">
+              <thead>
+                <tr>
+                  <th>Jumlah</th>
+                  <th>Modal</th>
+                  <th>Profit Bersih</th>
+                  <th>Admin (9.5%)</th>
+                  <th>Biaya Proses</th>
+                  <th>Penyesuaian Rasio</th>
+                  <th>Harga Jual Final</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
           </div>
-        </a>
-        <a href="assets/sources/blogpreviewcard/index.html" target="_blank">
-          <div class="list">
-            <span>January 26, 2024</span>
-            <figure>
-              <img src="assets/images/list3.png" alt="Blog Preview Card">
-              <figcaption>Blog Preview Card</figcaption>
-            </figure>
-          </div>
-        </a>
-        <a href="assets/sources/resultssummary/index.html" target="_blank">
-          <div class="list">
-            <span>January 27, 2024</span>
-            <figure>
-              <img src="assets/images/list4.png" alt="Results Summary Components">
-              <figcaption>Results Summary Components</figcaption>
-            </figure>
-          </div>
-        </a>
-        <a href="assets/sources/profilcardcomponent/index.html" target="_blank">
-          <div class="list">
-            <span>January 28, 2024</span>
-            <figure>
-              <img src="assets/images/list5.png" alt="Profil Card Component">
-              <figcaption>Profil Card Component</figcaption>
-            </figure>
-          </div>
-        </a>
-        <a href="assets/sources/socialprofsection/index.html" target="_blank">
-          <div class="list">
-            <span>January 29, 2024</span>
-            <figure>
-              <img src="assets/images/list6.png" alt="Social Prof Section">
-              <figcaption>Social Prof Section</figcaption>
-            </figure>
-          </div>
-        </a>
-        <a href="assets/sources/fourcardfeature/index.html" target="_blank">
-          <div class="list">
-            <span>January 30, 2024</span>
-            <figure>
-              <img src="assets/images/list7.png" alt="Four Card Feature">
-              <figcaption>Four Card Feature</figcaption>
-            </figure>
-          </div>
-        </a>
-      </div> -->
-        <!-- <h3>My Certicates</h3>
-      <div class="certificates">
-        <div class="certif">
-          <figure>
-            <img src="assets/images/pkl.jpg" alt="Praktik Kerja Lapangan">
-            <figcaption>Praktik Kerja Lapangan</figcaption>
-            <figcaption>Mitra Computer</figcaption>
-          </figure>
         </div>
-        <div class="certif">
-          <figure>
-            <img src="assets/images/ukk.jpg" alt="Uji Kompetensi Keahlian">
-            <figcaption>Uji Kompetensi Keahlian</figcaption>
-            <figcaption>SMK | Teknik Informatika Jaringan</figcaption>
-          </figure>
-        </div>
-        <div class="certif">
-          <figure>
-            <img src="assets/images/dicoding.jpg" alt="Belajar Dasar Pemrograman Web">
-            <figcaption>Belajar Dasar Pemrograman Web</figcaption>
-            <figcaption>Dicoding</figcaption>
-          </figure>
-        </div>
-        <div class="certif">
-          <figure>
-            <img src="assets/images/vsga.jpg" alt="Web Developer">
-            <figcaption>Web Developer</figcaption>
-            <figcaption>VSGA - Kominfo</figcaption>
-          </figure>
-        </div>
-      </div> -->
-      </main>
-      <footer>2024 &copy; Abdul Fikri</footer>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="toast">Berhasil diproses!</div>
+
+    <script>
+      const FEE_ADMIN_PERCENT = 0.095;
+      const FEE_PROCESS_FLAT = 1250;
+      const THRESHOLD_PROCESS_FEE = 2000;
+
+      const categories = {
+        cat1: [100, 250, 500, 750, 1000],
+        cat2: [1000, 2500, 5000, 7500, 10000],
+      };
+
+      function handleInputRupiah(el) {
+        let value = el.value.replace(/[^0-9]/g, "");
+        el.value = value ? Number(value).toLocaleString("id-ID") : "";
+      }
+
+      function parseRawNumber(str) {
+        return parseFloat(str.replace(/\./g, "").replace(/,/g, "")) || 0;
+      }
+
+      function formatIDR(amount) {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+          minimumFractionDigits: 0,
+        }).format(amount);
+      }
+
+      function getProfit(modal) {
+        if (modal < 300) return 200;
+        if (modal < 1000) return Math.max(modal * 0.3, 200);
+        if (modal < 3000) return Math.max(modal * 0.3, 500);
+        if (modal < 10000) return Math.max(modal * 0.25, 1000);
+        return modal * 0.2;
+      }
+
+      function naturalRounding(price) {
+        return price < 1000
+          ? Math.ceil(price / 50) * 50
+          : Math.ceil(price / 100) * 100;
+      }
+
+      function handleCalculation() {
+        const supplierPrice = parseRawNumber(
+          document.getElementById("supplierPrice").value,
+        );
+        if (supplierPrice <= 0) {
+          showToast("Masukkan harga supplier yang valid");
+          return;
+        }
+
+        const btn = document.getElementById("btnCalculate");
+        const btnText = document.getElementById("btnText");
+        const btnLoader = document.getElementById("btnLoader");
+        const btnIcon = document.getElementById("btnIcon");
+
+        btn.disabled = true;
+        btnText.innerText = "MENGANALISA...";
+        btnLoader.style.display = "block";
+        btnIcon.style.display = "none";
+        document.getElementById("resultsArea").style.opacity = "0.5";
+
+        setTimeout(() => {
+          performCalculate();
+          btn.disabled = false;
+          btnText.innerText = "HITUNG HARGA JUAL";
+          btnLoader.style.display = "none";
+          btnIcon.style.display = "block";
+          document.getElementById("resultsArea").style.opacity = "1";
+        }, 800);
+      }
+
+      function performCalculate() {
+        const supplierPrice = parseRawNumber(
+          document.getElementById("supplierPrice").value,
+        );
+        const categoryKey = document.getElementById("categorySelect").value;
+        const activeQuantities = categories[categoryKey];
+        const tableBody = document.getElementById("tableBody");
+        const summaryBox = document.getElementById("summaryBox");
+        tableBody.innerHTML = "";
+
+        // 1. Hitung Dasar
+        let results = [];
+        let anyVariationHitsThreshold = false;
+
+        activeQuantities.forEach((qty) => {
+          const modal = (supplierPrice / 1000) * qty;
+          const profit = getProfit(modal);
+          const beforeFee = modal + profit;
+          const trialFinal = beforeFee / (1 - FEE_ADMIN_PERCENT);
+          if (trialFinal >= THRESHOLD_PROCESS_FEE)
+            anyVariationHitsThreshold = true;
+
+          results.push({
+            qty,
+            modal,
+            profit,
+            beforeFee,
+            finalPrice: 0,
+            ratioAdj: 0,
+            isStepAdjusted: false,
+          });
+        });
+
+        const globalProcessFee = anyVariationHitsThreshold
+          ? FEE_PROCESS_FLAT
+          : 0;
+        let maxFinal = 0;
+
+        results.forEach((res) => {
+          res.finalPrice =
+            (res.beforeFee + globalProcessFee) / (1 - FEE_ADMIN_PERCENT);
+          if (res.finalPrice > maxFinal) maxFinal = res.finalPrice;
+        });
+
+        // 2. Jarak & Rounding (Low Price)
+        const isLowPriceListing = maxFinal <= 1000;
+        if (isLowPriceListing) {
+          const minGaps = [100, 150, 200, 250, 300];
+          for (let i = 1; i < results.length; i++) {
+            const reqGap = minGaps[i - 1];
+            if (results[i].finalPrice - results[i - 1].finalPrice < reqGap) {
+              results[i].finalPrice = results[i - 1].finalPrice + reqGap;
+              results[i].isStepAdjusted = true;
+            }
+          }
+          results.forEach((res) => {
+            const rounded = naturalRounding(res.finalPrice);
+            if (rounded > res.finalPrice) {
+              res.finalPrice = rounded;
+              res.isStepAdjusted = true;
+            }
+          });
+        }
+
+        // 3. LOGIKA RASIO 1:7
+        const currentMinFinal = results[0].finalPrice;
+        const currentMaxFinal = results[results.length - 1].finalPrice;
+        const minAllowed = currentMaxFinal / 7;
+
+        let ratioApplied = false;
+        if (currentMinFinal < minAllowed) {
+          ratioApplied = true;
+          const factor = minAllowed / currentMinFinal;
+
+          // Scale all EXCEPT the last one
+          for (let i = 0; i < results.length - 1; i++) {
+            const oldPrice = results[i].finalPrice;
+            let scaledPrice = oldPrice * factor;
+
+            // Re-apply rounding if it's low price listing
+            if (isLowPriceListing) {
+              scaledPrice = naturalRounding(scaledPrice);
+            } else {
+              // REVISI: Bulatkan ke atas (ceil) jika ada koma/desimal karena rasio aktif
+              scaledPrice = Math.ceil(scaledPrice);
+            }
+
+            results[i].ratioAdj = scaledPrice - oldPrice;
+            results[i].finalPrice = scaledPrice;
+          }
+        }
+
+        // 4. Update Summary
+        summaryBox.innerHTML = `
+                <strong>Ringkasan Strategi:</strong>
+                ${ratioApplied ? `<span style="color:var(--accent)">Proteksi Rasio 1:7 Aktif: Harga variasi kecil dinaikkan proporsional agar tidak terlalu jauh dari variasi termahal.</span><br>` : ""}
+                ${isLowPriceListing ? "Listing nominal rendah: Penyesuaian jarak & pembulatan natural diterapkan." : `Harga Supplier: ${formatIDR(supplierPrice)}/1.000. ${anyVariationHitsThreshold ? "Global Biaya Proses Aktif." : "Biaya Proses Rp0."}`}
+            `;
+
+        // 5. Render
+        results.forEach((res, index) => {
+          // Pastikan harga final tidak memiliki desimal di tampilan manapun
+          const finalDisplayPrice = Math.ceil(res.finalPrice);
+          const adminFee = finalDisplayPrice * FEE_ADMIN_PERCENT;
+          const realProfit =
+            finalDisplayPrice - adminFee - globalProcessFee - res.modal;
+
+          const row = document.createElement("tr");
+          row.className = "row-anim";
+          row.style.animationDelay = `${index * 0.08}s`;
+          if (anyVariationHitsThreshold) row.classList.add("highlight");
+
+          row.innerHTML = `
+                    <td><strong>${res.qty.toLocaleString("id-ID")}</strong></td>
+                    <td>${formatIDR(res.modal)}</td>
+                    <td class="profit-text">${formatIDR(realProfit)}</td>
+                    <td><span class="badge-fee">${formatIDR(adminFee)}</span></td>
+                    <td>${globalProcessFee > 0 ? `<span class="badge-fee" style="background:#e0f2fe; color:#0369a1;">${formatIDR(globalProcessFee)}</span>` : '<span class="badge-none">Rp0</span>'}</td>
+                    <td>${res.ratioAdj > 0 ? `<span class="badge-ratio">+${Math.round(res.ratioAdj).toLocaleString("id-ID")}</span>` : "-"}</td>
+                    <td class="price-final">
+                        ${formatIDR(finalDisplayPrice)} 
+                        ${res.isStepAdjusted || res.ratioAdj > 0 ? '<span class="badge-adj">Adj</span>' : ""}
+                    </td>
+                `;
+          tableBody.appendChild(row);
+        });
+
+        document.getElementById("resultsArea").style.display = "block";
+        window.scrollTo({
+          top: document.getElementById("resultsArea").offsetTop - 20,
+          behavior: "smooth",
+        });
+      }
+
+      function resetForm() {
+        document.getElementById("supplierPrice").value = "";
+        document.getElementById("resultsArea").style.display = "none";
+      }
+
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.innerText = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+      }
+
+      document.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleCalculation();
+      });
+    </script>
   </body>
 </html>
