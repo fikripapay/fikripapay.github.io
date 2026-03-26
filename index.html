@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator SMM Pro - Multi Mode</title>
+    <title>Kalkulator SMM Pro - Single & Package Mode</title>
     <!-- Import Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -137,15 +137,8 @@
             box-shadow: 0 10px 20px rgba(79, 70, 229, 0.4);
         }
 
-        .mode-card h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .mode-card p {
-            font-size: 0.95rem;
-            color: #c7d2fe;
-        }
+        .mode-card h2 { font-size: 1.5rem; font-weight: 700; }
+        .mode-card p { font-size: 0.95rem; color: #c7d2fe; }
 
         /* --- Calculator UI --- */
         .glass-card {
@@ -156,13 +149,19 @@
             box-shadow: var(--shadow-lg);
             border: 1px solid rgba(255, 255, 255, 0.4);
             margin-bottom: 40px;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         .grid-inputs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 1fr;
             gap: 40px;
+        }
+
+        .input-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
         }
 
         .form-group {
@@ -173,11 +172,11 @@
 
         label {
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -190,38 +189,35 @@
 
         .input-prefix {
             position: absolute;
-            left: 18px;
+            left: 14px;
             color: var(--text-muted);
             font-weight: 700;
+            font-size: 0.9rem;
         }
 
         input {
             width: 100%;
-            padding: 16px 20px;
+            padding: 12px 16px;
             border: 2px solid var(--border-color);
             border-radius: var(--radius-md);
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             outline: none;
             background: #f8fafc;
         }
 
-        input.with-prefix { padding-left: 52px; }
-
-        input:focus {
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.1);
-        }
+        input.with-prefix { padding-left: 42px; }
+        input:focus { border-color: var(--primary); background: white; box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.1); }
 
         /* --- Qty List --- */
         .qty-list-container { display: flex; flex-direction: column; gap: 12px; }
-        .qty-row { display: flex; gap: 10px; animation: slideInDown 0.3s ease-out; }
+        .qty-row { display: flex; gap: 8px; animation: slideInDown 0.3s ease-out; flex-wrap: nowrap; }
         
-        @keyframes slideInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .qty-input { flex: 1; min-width: 80px; }
 
         .btn-qty-action {
-            width: 50px;
+            width: 42px;
+            height: 42px;
             background: white;
             border: 2px solid var(--border-color);
             border-radius: var(--radius-md);
@@ -230,6 +226,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
         .btn-qty-action:hover { border-color: var(--primary); color: var(--primary); background: #f5f3ff; }
@@ -251,8 +248,6 @@
             gap: 8px;
             margin-top: 10px;
         }
-
-        .btn-add-more:hover { border-color: var(--primary); background: rgba(79, 70, 229, 0.05); }
 
         /* --- Buttons --- */
         .actions { display: flex; gap: 20px; margin-top: 40px; }
@@ -291,45 +286,47 @@
             display: none;
             transition: all 0.3s;
         }
-        .btn-back:hover { background: rgba(255,255,255,0.1); border-color: white; color: white; }
 
-        .spinner { width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; display: none; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .package-selector {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(79, 70, 229, 0.05);
+            border-radius: var(--radius-md);
+        }
+
+        .package-selector select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            outline: none;
+            font-weight: 600;
+        }
 
         /* --- Results --- */
+        .summary-banner { background: rgba(238, 242, 255, 0.9); border-left: 6px solid var(--primary); padding: 24px 32px; border-radius: var(--radius-md); margin-bottom: 30px; box-shadow: var(--shadow-md); }
+        .summary-banner strong { color: var(--primary-dark); display: block; margin-bottom: 8px; text-transform: uppercase; font-size: 0.9rem; }
+
         .results-card { background: white; border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-lg); }
-        .table-header h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 30px; }
         .table-container { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: #fafafa; }
         
         table { width: 100%; border-collapse: collapse; min-width: 900px; }
-        th { background-color: #f1f5f9; padding: 20px 16px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; text-align: left; border-bottom: 2px solid var(--border-color); }
-        td { padding: 18px 16px; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+        th { background-color: #f1f5f9; padding: 20px 16px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem; text-align: left; border-bottom: 2px solid var(--border-color); }
+        td { padding: 18px 16px; border-bottom: 1px solid var(--border-color); vertical-align: middle; font-size: 0.9rem; }
         
         tr.row-anim { opacity: 0; transform: translateY(15px); animation: rowAppear 0.5s ease-out forwards; }
         @keyframes rowAppear { to { opacity: 1; transform: translateY(0); } }
 
-        .price-final { font-weight: 900; font-size: 1.15rem; color: var(--primary); }
+        .price-final { font-weight: 900; font-size: 1.1rem; color: var(--primary); }
         .profit-text { font-weight: 700; color: var(--success); }
-        .badge-fee { background: #fee2e2; color: var(--danger); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; font-weight: 800; }
-        .badge-adj { background: #dcfce7; color: #15803d; padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; font-weight: 800; }
-        .badge-ratio { background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .badge-fee { background: #fee2e2; color: var(--danger); padding: 4px 10px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; }
+        .badge-adj { background: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; }
+        .badge-ratio { background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
 
-        .summary-banner {
-            background: rgba(238, 242, 255, 0.9);
-            border-left: 6px solid var(--primary);
-            padding: 24px 32px;
-            border-radius: var(--radius-md);
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .summary-banner strong {
-            color: var(--primary-dark);
-            display: block;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
+        .spinner { width: 20px; height: 20px; border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         #toast { visibility: hidden; min-width: 300px; background-color: #1e293b; color: #fff; text-align: center; border-radius: 60px; padding: 18px 30px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 1rem; font-weight: 600; box-shadow: 0 15px 35px rgba(0,0,0,0.3); opacity: 0; transition: all 0.4s ease; }
         #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
@@ -338,8 +335,7 @@
             header h1 { font-size: 2.2rem; }
             .glass-card { padding: 25px; }
             .actions { flex-direction: column; }
-            .table-container { min-width: 100%; }
-            table { min-width: 600px; }
+            td { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -354,43 +350,51 @@
 
         <!-- Selection Screen -->
         <div id="selectionScreen" class="selection-grid">
-            <div class="mode-card" onclick="selectMode('shopee')">
+            <div class="mode-card" onclick="selectMode('single')">
                 <div class="mode-icon">
-                    <svg width="40" height="40" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    <svg width="40" height="40" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                 </div>
-                <h2>Kalkulator Shopee</h2>
-                <p>Mencakup Admin 9.5%, Biaya Proses, & Proteksi Rasio 1:7</p>
+                <h2>Produk Single Shopee</h2>
+                <p>Kalkulasi standar untuk satu jenis produk Shopee</p>
             </div>
-            <div class="mode-card" onclick="selectMode('general')">
+            <div class="mode-card" onclick="selectMode('package')">
                 <div class="mode-icon">
-                    <svg width="40" height="40" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg width="40" height="40" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
-                <h2>Luar Shopee</h2>
-                <p>Perhitungan bersih tanpa biaya admin atau proteksi tambahan</p>
+                <h2>Produk Package Shopee</h2>
+                <p>Paket bundling 2-5 produk dalam satu rincian harga</p>
             </div>
         </div>
 
         <!-- Calculator UI -->
         <div id="calculatorScreen" class="glass-card">
+            
+            <div id="packageSizeArea" class="package-selector" style="display: none;">
+                <label>Jumlah Produk dalam Paket:</label>
+                <select id="packageSizeSelect" onchange="initInputs()">
+                    <option value="2">2 Produk</option>
+                    <option value="3">3 Produk</option>
+                    <option value="4">4 Produk</option>
+                    <option value="5">5 Produk</option>
+                </select>
+            </div>
+
             <div class="grid-inputs">
+                <!-- Supplier Prices Area -->
                 <div class="form-group">
-                    <label for="supplierPrice">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        Harga Supplier (per 1.000)
-                    </label>
-                    <div class="input-wrapper">
-                        <span class="input-prefix">Rp</span>
-                        <input type="text" id="supplierPrice" class="with-prefix" placeholder="Contoh: 2.500" oninput="handleInputRupiah(this)">
+                    <label>Harga Supplier (per 1.000)</label>
+                    <div id="supplierPricesList" class="input-section">
+                        <!-- Dynamic Supplier Inputs -->
                     </div>
                 </div>
 
+                <!-- Custom Quantities Area -->
                 <div class="form-group">
-                    <label>
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                        Kuantitas Pesanan
-                    </label>
-                    <div id="qtyList" class="qty-list-container"></div>
-                    <button class="btn-add-more" onclick="addQtyRow()">+ Tambah Baris Jumlah</button>
+                    <label>Kuantitas Pesanan per Baris</label>
+                    <div id="qtyList" class="qty-list-container">
+                        <!-- Dynamic Qty Rows -->
+                    </div>
+                    <button class="btn-add-more" onclick="addQtyRow()">+ Tambah Baris Variasi Paket</button>
                 </div>
             </div>
 
@@ -408,9 +412,6 @@
         <div id="resultsArea" style="display: none; margin-top: 40px;">
             <div class="summary-banner" id="summaryBox"></div>
             <div class="results-card">
-                <div class="table-header">
-                    <h2 id="tableTitle">Rincian Pricing</h2>
-                </div>
                 <div class="table-container">
                     <table id="resultsTable">
                         <thead id="tableHead"></thead>
@@ -428,11 +429,8 @@
         const FEE_PROCESS_FLAT = 1250;
         const THRESHOLD_PROCESS_FEE = 2000;
         
-        let currentMode = '';
-
-        window.onload = function() {
-            goHome();
-        };
+        let currentMode = ''; // 'single' or 'package'
+        let currentPackageSize = 1;
 
         function selectMode(mode) {
             currentMode = mode;
@@ -441,10 +439,45 @@
             document.getElementById('btnBack').style.display = 'inline-block';
             
             const sub = document.getElementById('subHeader');
-            sub.innerText = mode === 'shopee' ? 'Mode Shopee: Dilengkapi biaya admin & proteksi rasio' : 'Mode Luar Shopee: Perhitungan margin murni dengan jarak bertahap';
+            if (mode === 'single') {
+                currentPackageSize = 1;
+                document.getElementById('packageSizeArea').style.display = 'none';
+                sub.innerText = 'Mode Single: Perhitungan satu produk Shopee';
+            } else {
+                currentPackageSize = 2;
+                document.getElementById('packageSizeArea').style.display = 'flex';
+                sub.innerText = 'Mode Package: Bundling beberapa produk Shopee';
+            }
             
-            const list = document.getElementById('qtyList');
-            if (list.children.length === 0) addQtyRow("");
+            initInputs();
+        }
+
+        function initInputs() {
+            if (currentMode === 'package') {
+                currentPackageSize = parseInt(document.getElementById('packageSizeSelect').value);
+            } else {
+                currentPackageSize = 1;
+            }
+
+            // Create Supplier Inputs
+            const supplierContainer = document.getElementById('supplierPricesList');
+            supplierContainer.innerHTML = '';
+            for (let i = 1; i <= currentPackageSize; i++) {
+                const group = document.createElement('div');
+                group.className = 'form-group';
+                group.innerHTML = `
+                    <label style="font-size:0.65rem">Prod ${i}</label>
+                    <div class="input-wrapper">
+                        <span class="input-prefix">Rp</span>
+                        <input type="text" class="supplier-input with-prefix" placeholder="Harga P${i}" oninput="handleInputRupiah(this)">
+                    </div>
+                `;
+                supplierContainer.appendChild(group);
+            }
+
+            // Reset Qty List
+            document.getElementById('qtyList').innerHTML = '';
+            addQtyRow();
         }
 
         function goHome() {
@@ -454,20 +487,28 @@
             document.getElementById('resultsArea').style.display = 'none';
             document.getElementById('btnBack').style.display = 'none';
             document.getElementById('subHeader').innerText = 'Pilih platform penjualan Anda untuk memulai';
-            resetForm();
         }
 
-        function addQtyRow(value = "") {
+        function addQtyRow() {
             const container = document.getElementById('qtyList');
             const row = document.createElement('div');
             row.className = 'qty-row';
-            row.innerHTML = `<input type="number" class="qty-input" placeholder="Jumlah" value="${value}"><button class="btn-qty-action btn-remove" onclick="removeQtyRow(this)">-</button>`;
+            
+            let inputsHtml = '';
+            for (let i = 1; i <= currentPackageSize; i++) {
+                inputsHtml += `<input type="number" class="qty-input-field" placeholder="Qty P${i}">`;
+            }
+            
+            row.innerHTML = `
+                ${inputsHtml}
+                <button class="btn-qty-action btn-remove" onclick="removeQtyRow(this)">-</button>
+            `;
             container.appendChild(row);
         }
 
         function removeQtyRow(btn) {
             if (document.getElementById('qtyList').children.length > 1) btn.parentElement.remove();
-            else showToast("Minimal satu baris kuantitas");
+            else showToast("Minimal satu baris variasi");
         }
 
         function handleInputRupiah(el) {
@@ -491,14 +532,25 @@
         }
 
         function handleCalculation() {
-            const supplierPrice = parseRawNumber(document.getElementById('supplierPrice').value);
-            if (supplierPrice <= 0) { showToast("Masukkan harga supplier valid"); return; }
+            // Get Supplier Prices
+            const supplierInputs = document.querySelectorAll('.supplier-input');
+            let supplierPrices = [];
+            supplierInputs.forEach(input => supplierPrices.push(parseRawNumber(input.value)));
 
-            const qtyInputs = document.querySelectorAll('.qty-input');
-            let activeQtys = [];
-            qtyInputs.forEach(i => { if (parseInt(i.value) > 0) activeQtys.push(parseInt(i.value)); });
-            if (activeQtys.length === 0) { showToast("Masukkan kuantitas"); return; }
-            activeQtys.sort((a, b) => a - b);
+            if (supplierPrices.some(p => p <= 0)) { showToast("Masukkan semua harga supplier"); return; }
+
+            // Get Qty Rows
+            const qtyRows = document.querySelectorAll('.qty-row');
+            let variations = [];
+            qtyRows.forEach(row => {
+                const inputs = row.querySelectorAll('.qty-input-field');
+                let rowQtys = [];
+                inputs.forEach(input => rowQtys.push(parseInt(input.value) || 0));
+                
+                if (rowQtys.every(q => q > 0)) variations.push(rowQtys);
+            });
+
+            if (variations.length === 0) { showToast("Lengkapi semua kuantitas"); return; }
 
             const btn = document.getElementById('btnCalculate');
             btn.disabled = true;
@@ -507,7 +559,7 @@
             document.getElementById('btnIcon').style.display = "none";
 
             setTimeout(() => {
-                performCalculate(supplierPrice, activeQtys);
+                performCalculate(supplierPrices, variations);
                 btn.disabled = false;
                 document.getElementById('btnText').innerText = "HITUNG HARGA JUAL";
                 document.getElementById('btnLoader').style.display = "none";
@@ -515,131 +567,107 @@
             }, 800);
         }
 
-        function performCalculate(supplierPrice, activeQtys) {
+        function performCalculate(supplierPrices, variations) {
             const tableBody = document.getElementById('tableBody');
             const tableHead = document.getElementById('tableHead');
             const summaryBox = document.getElementById('summaryBox');
             tableBody.innerHTML = '';
             
+            tableHead.innerHTML = `<tr><th>Kuantitas Paket</th><th>Total Modal</th><th>Profit Bersih</th><th>Admin (9.5%)</th><th>Biaya Proses</th><th>Penyesuaian Rasio</th><th>Harga Jual Final</th></tr>`;
+
             let results = [];
             let anyHitsThreshold = false;
 
-            // 1. Perhitungan Dasar (Modal + Profit)
-            activeQtys.forEach(qty => {
-                const modal = (supplierPrice / 1000) * qty;
-                const profit = getProfit(modal);
-                const beforeFee = modal + profit;
-                
-                // Gunakan trial final untuk cek threshold biaya proses khusus mode Shopee
+            // Sort variations by sum of quantities to maintain logic
+            variations.sort((a, b) => a.reduce((sum, v) => sum + v, 0) - b.reduce((sum, v) => sum + v, 0));
+
+            variations.forEach(rowQtys => {
+                let modalTotal = 0;
+                rowQtys.forEach((q, idx) => {
+                    modalTotal += (supplierPrices[idx] / 1000) * q;
+                });
+
+                const profit = getProfit(modalTotal);
+                const beforeFee = modalTotal + profit;
                 const trialFinal = beforeFee / (1 - FEE_ADMIN_PERCENT);
                 if (trialFinal >= THRESHOLD_PROCESS_FEE) anyHitsThreshold = true;
                 
                 results.push({ 
-                    qty, modal, profit, beforeFee, 
-                    finalPrice: (currentMode === 'shopee' ? 0 : beforeFee), 
-                    ratioAdj: 0, 
-                    isAdj: false 
+                    qtys: rowQtys, 
+                    modalTotal, profit, beforeFee, 
+                    finalPrice: 0, ratioAdj: 0, isAdj: false 
                 });
             });
 
-            if (currentMode === 'shopee') {
-                tableHead.innerHTML = `<tr><th>Jumlah</th><th>Modal</th><th>Profit Bersih</th><th>Admin (9.5%)</th><th>Biaya Proses</th><th>Penyesuaian Rasio</th><th>Harga Jual Final</th></tr>`;
-                
-                const globalFee = anyHitsThreshold ? FEE_PROCESS_FLAT : 0;
-                let maxF = 0;
-                
-                // Hitung Harga Final Shopee
+            const globalFee = anyHitsThreshold ? FEE_PROCESS_FLAT : 0;
+            let maxF = 0;
+
+            // Step 1: Base Final Price
+            results.forEach(res => {
+                res.finalPrice = (res.beforeFee + globalFee) / (1 - FEE_ADMIN_PERCENT);
+                if (res.finalPrice > maxF) maxF = res.finalPrice;
+            });
+
+            // Step 2: Gaps & Rounding (Low Price Listing)
+            if (maxF <= 1000) {
+                const minGaps = [100, 150, 200, 250, 300]; 
+                for (let i = 1; i < results.length; i++) {
+                    const gap = minGaps[i - 1] || 100;
+                    if (results[i].finalPrice - results[i - 1].finalPrice < gap) {
+                        results[i].finalPrice = results[i - 1].finalPrice + gap;
+                        results[i].isAdj = true;
+                    }
+                }
                 results.forEach(res => {
-                    res.finalPrice = (res.beforeFee + globalFee) / (1 - FEE_ADMIN_PERCENT);
-                    if (res.finalPrice > maxF) maxF = res.finalPrice;
-                });
-
-                // Penyesuaian Jarak & Pembulatan (Nominal Rendah Shopee)
-                if (maxF <= 1000) {
-                    const minGaps = [100, 150, 200, 250, 300]; 
-                    for (let i = 1; i < results.length; i++) {
-                        const gap = minGaps[i - 1] || 100;
-                        if (results[i].finalPrice - results[i - 1].finalPrice < gap) {
-                            results[i].finalPrice = results[i - 1].finalPrice + gap;
-                            results[i].isAdj = true;
-                        }
-                    }
-                    results.forEach(res => {
-                        const r = naturalRounding(res.finalPrice);
-                        if (r > res.finalPrice) { res.finalPrice = r; res.isAdj = true; }
-                    });
-                }
-
-                // Logika Rasio 1:7
-                const minAllowed = results[results.length - 1].finalPrice / 7;
-                if (results[0].finalPrice < minAllowed) {
-                    const factor = minAllowed / results[0].finalPrice;
-                    for (let i = 0; i < results.length - 1; i++) {
-                        const old = results[i].finalPrice;
-                        let sc = Math.ceil(old * factor);
-                        results[i].ratioAdj = sc - old;
-                        results[i].finalPrice = sc;
-                    }
-                }
-
-                summaryBox.innerHTML = `<strong>Ringkasan Strategi Shopee:</strong> Harga Dasar: ${formatIDR(supplierPrice)}/1.000. ${anyHitsThreshold ? 'Pemicu Biaya Proses Aktif.' : 'Biaya Proses Rp0.'}`;
-
-                results.forEach((res, index) => {
-                    const fP = Math.ceil(res.finalPrice);
-                    const adm = fP * FEE_ADMIN_PERCENT;
-                    const realProfit = fP - adm - globalFee - res.modal;
-                    const row = document.createElement('tr');
-                    row.className = 'row-anim';
-                    row.style.animationDelay = `${index * 0.08}s`;
-                    row.innerHTML = `<td><strong>${res.qty.toLocaleString('id-ID')}</strong></td><td>${formatIDR(res.modal)}</td><td class="profit-text">${formatIDR(realProfit)}</td><td><span class="badge-fee">${formatIDR(adm)}</span></td><td>${globalFee > 0 ? `<span class="badge-fee" style="background:#e0f2fe; color:#0369a1;">${formatIDR(globalFee)}</span>` : '<span class="badge-none">Rp0</span>'}</td><td>${res.ratioAdj > 0 ? `<span class="badge-ratio">+${Math.round(res.ratioAdj).toLocaleString('id-ID')}</span>` : '-'}</td><td class="price-final">${formatIDR(fP)} ${res.isAdj || res.ratioAdj > 0 ? '<span class="badge-adj">Adj</span>' : ''}</td>`;
-                    tableBody.appendChild(row);
-                });
-
-            } else {
-                // MODE GENERAL (Luar Shopee)
-                tableHead.innerHTML = `<tr><th>Jumlah</th><th>Modal</th><th>Profit Riil</th><th>Harga Jual Final</th></tr>`;
-                
-                let maxF = 0;
-                results.forEach(res => { if (res.finalPrice > maxF) maxF = res.finalPrice; });
-
-                // TETAP TERAPKAN PENYESUAIAN JARAK (Nominal Rendah General)
-                if (maxF <= 1000) {
-                    const minGaps = [100, 150, 200, 250, 300]; 
-                    for (let i = 1; i < results.length; i++) {
-                        const gap = minGaps[i - 1] || 100;
-                        if (results[i].finalPrice - results[i - 1].finalPrice < gap) {
-                            results[i].finalPrice = results[i - 1].finalPrice + gap;
-                            results[i].isAdj = true;
-                        }
-                    }
-                    // Pembulatan Natural agar angka jualan bagus
-                    results.forEach(res => {
-                        const r = naturalRounding(res.finalPrice);
-                        if (r > res.finalPrice) { res.finalPrice = r; res.isAdj = true; }
-                    });
-                }
-
-                summaryBox.innerHTML = `<strong>Ringkasan Strategi:</strong> Menghitung harga jual bersih (Modal + Profit). ${maxF <= 1000 ? 'Penyesuaian jarak & pembulatan natural diterapkan untuk nominal rendah.' : 'Tanpa biaya administrasi.'}`;
-                
-                results.forEach((res, index) => {
-                    const fP = Math.ceil(res.finalPrice);
-                    const realProfit = fP - res.modal;
-                    const row = document.createElement('tr');
-                    row.className = 'row-anim';
-                    row.style.animationDelay = `${index * 0.08}s`;
-                    row.innerHTML = `<td><strong>${res.qty.toLocaleString('id-ID')}</strong></td><td>${formatIDR(res.modal)}</td><td class="profit-text">${formatIDR(realProfit)}</td><td class="price-final">${formatIDR(fP)} ${res.isAdj ? '<span class="badge-adj">Adj</span>' : ''}</td>`;
-                    tableBody.appendChild(row);
+                    const r = naturalRounding(res.finalPrice);
+                    if (r > res.finalPrice) { res.finalPrice = r; res.isAdj = true; }
                 });
             }
+
+            // Step 3: Ratio 1:7
+            const minAllowed = results[results.length - 1].finalPrice / 7;
+            if (results[0].finalPrice < minAllowed) {
+                const factor = minAllowed / results[0].finalPrice;
+                for (let i = 0; i < results.length - 1; i++) {
+                    const old = results[i].finalPrice;
+                    let sc = Math.ceil(old * factor);
+                    results[i].ratioAdj = sc - old;
+                    results[i].finalPrice = sc;
+                }
+            }
+
+            summaryBox.innerHTML = `<strong>Ringkasan Strategi:</strong> Listing ${currentMode.toUpperCase()}. ${anyHitsThreshold ? 'Global Biaya Proses Aktif (1.250).' : 'Biaya Proses Rp0.'}`;
+
+            results.forEach((res, index) => {
+                const fP = Math.ceil(res.finalPrice);
+                const adm = fP * FEE_ADMIN_PERCENT;
+                const realProfit = fP - adm - globalFee - res.modalTotal;
+                const row = document.createElement('tr');
+                row.className = 'row-anim';
+                row.style.animationDelay = `${index * 0.08}s`;
+                
+                const qtyDisplay = res.qtys.length > 1 ? res.qtys.join(" + ") : res.qtys[0];
+
+                row.innerHTML = `
+                    <td><strong>${qtyDisplay}</strong></td>
+                    <td>${formatIDR(res.modalTotal)}</td>
+                    <td class="profit-text">${formatIDR(realProfit)}</td>
+                    <td><span class="badge-fee">${formatIDR(adm)}</span></td>
+                    <td>${globalFee > 0 ? `<span class="badge-fee" style="background:#e0f2fe; color:#0369a1;">${formatIDR(globalFee)}</span>` : '<span class="badge-none">Rp0</span>'}</td>
+                    <td>${res.ratioAdj > 0 ? `<span class="badge-ratio">+${Math.round(res.ratioAdj).toLocaleString('id-ID')}</span>` : '-'}</td>
+                    <td class="price-final">${formatIDR(fP)} ${res.isAdj || res.ratioAdj > 0 ? '<span class="badge-adj">Adj</span>' : ''}</td>
+                `;
+                tableBody.appendChild(row);
+            });
 
             document.getElementById('resultsArea').style.display = 'block';
             window.scrollTo({ top: document.getElementById('resultsArea').offsetTop - 20, behavior: 'smooth' });
         }
 
         function resetForm() {
-            document.getElementById('supplierPrice').value = '';
+            document.querySelectorAll('.supplier-input').forEach(i => i.value = '');
             document.getElementById('qtyList').innerHTML = '';
-            addQtyRow("");
+            addQtyRow();
             document.getElementById('resultsArea').style.display = 'none';
         }
 
