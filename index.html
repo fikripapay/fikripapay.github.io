@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Calculator SosBoost ID</title>
+    <!-- Modern Favicon (Inline SVG) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='url(%23grad)' /%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234f46e5;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M 25 75 L 45 45 L 60 55 L 80 25' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none' /%3E%3Cpolyline points='65 25 80 25 80 40' stroke='white' stroke-width='8' stroke-linecap='round' stroke-linejoin='round' fill='none' /%3E%3C/svg%3E">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary: #8b5cf6;
+            --bg: #f0f4f8; /* Soft blue-gray for premium feel */
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #059669;
+            --success-bg: #d1fae5;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --info: #0ea5e9;
+            --info-bg: #e0f2fe;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 15px 35px -5px rgba(15, 23, 42, 0.08), 0 5px 15px -5px rgba(15, 23, 42, 0.05);
+            --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.35);
+            
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1.25rem;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 100% 0%, #e0e7ff 0%, transparent 25%), 
+                              radial-gradient(circle at 0% 100%, #f3e8ff 0%, transparent 25%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 3rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.025em;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.75rem;
+            transition: var(--transition);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .grid-1 { display: grid; grid-template-columns: 1fr; gap: 1.75rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.75rem; }
+        .qty-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+        
+        @media (min-width: 768px) {
+            .grid-3 { grid-template-columns: repeat(3, 1fr); }
+            .grid-cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
+            background-color: #f8fafc;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+            background-color: var(--surface);
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+            font-size: 1.15rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary:hover:not(:disabled) { 
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { 
+            background-color: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-bg);
+            color: var(--danger);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-danger:hover { 
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .qty-row {
+            display: flex;
+            gap: 0.5rem;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        .qty-row.removing {
+            animation: popOut 0.3s ease forwards;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 1.25rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            background-color: var(--surface);
+        }
+
+        th, td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price-highlight {
+            font-weight: 800;
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-success { background-color: var(--success-bg); color: var(--success); }
+        .badge-danger { background-color: var(--danger-bg); color: var(--danger); }
+        .badge-info { background-color: var(--info-bg); color: var(--info); }
+        .badge-neutral { background-color: #f1f5f9; color: var(--text-muted); }
+        
+        .currency-symbol { color: var(--text-muted); font-weight: 500; font-size: 0.85rem; margin-right: 2px;}
+
+        .validation-box {
+            margin-top: 1.25rem;
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            background-color: var(--success-bg);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .val-item { 
+            font-size: 0.9rem; 
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: slideInRight 0.4s ease forwards;
+        }
+        
+        .val-item.fw-bold {
+            margin-top: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px dashed rgba(16, 185, 129, 0.3);
+            font-size: 1rem;
+        }
+
+        .text-success { color: var(--success); }
+        .text-danger { color: var(--danger); }
+        .text-muted { color: var(--text-muted); }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 1.25rem;
+            height: 1.25rem;
+            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        button:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes popOut {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.9); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(-15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pricing Calculator SosBoost ID</h1>
+
+        <!-- Konfigurasi Global -->
+        <div class="card grid-cols-2" style="animation-delay: 0.1s;">
+            <div>
+                <h2>💵 1. Harga Modal Utama</h2>
+                <div class="input-group">
+                    <label>Mata Uang</label>
+                    <select id="currency" class="input-field" onchange="toggleKurs()">
+                        <option value="IDR">Rupiah (IDR)</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
+                <div class="input-group" id="kurs-group" style="display: none;">
+                    <label>Kurs USD ke IDR</label>
+                    <input type="text" id="kurs" class="input-field" value="Rp 19.000" data-raw="19000" oninput="formatCurrencyInput(this, false)">
+                </div>
+                <div class="input-group">
+                    <label>Harga Modal (Untuk 1000 Qty)</label>
+                    <input type="text" id="modal" class="input-field" placeholder="Masukkan harga modal" value="" data-raw="" oninput="formatCurrencyInput(this, document.getElementById('currency').value === 'USD')">
+                </div>
+            </div>
+            <div>
+                <h2>⚙️ 2. Pengaturan Global</h2>
+                <div class="input-group">
+                    <label>Pembulatan (Harga Jual)</label>
+                    <select id="rounding" class="input-field">
+                        <option value="100">Ratusan (Misal: 5840 -> 5800, 5860 -> 5900)</option>
+                        <option value="500">Lima Ratusan (Kelipatan 500)</option>
+                        <option value="1000">Ribuan (Kelipatan 1000)</option>
+                        <option value="0">Tidak Ada (Matematika Standar)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- QTY Bersama (Berlaku untuk WhatsApp dan Shopee) -->
+        <div class="card" style="animation-delay: 0.2s;">
+            <h2>📦 3. Qty Bersama</h2>
+            <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 1.25rem;">
+                List Quantity di bawah ini terhubung secara otomatis dan akan digunakan untuk perhitungan tabel <strong>WhatsApp</strong> dan <strong>Shopee</strong> secara bersamaan.
+            </p>
+            <div class="input-group">
+                <div id="shared-qty-container" class="qty-grid"></div>
+                <button class="btn btn-secondary" onclick="addQty()" style="width: max-content; margin-top: 0.5rem;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Tambah Qty
+                </button>
+            </div>
+        </div>
+
+        <!-- Platform Cards -->
+        <div class="grid-3">
+            <!-- Web Panel -->
+            <div class="card" style="animation-delay: 0.3s;">
+                <h2>🌐 4. Web Panel</h2>
+                <div class="input-group">
+                    <label>Margin (%)</label>
+                    <input type="number" id="web-margin" class="input-field" value="">
+                </div>
+                <div class="input-group">
+                    <label>List Quantity</label>
+                    <p class="text-muted" style="font-size: 0.85rem; background: #f8fafc; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                        Web selalu menggunakan 1 qty (Harga otomatis per 1000).
+                    </p>
+                </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="card" style="animation-delay: 0.4s;">
+                <h2>💬 5. WhatsApp</h2>
+                <div class="input-group">
+                    <label>Margin (%)</label>
+                    <input type="number" id="wa-margin" class="input-field" value="">
+                </div>
+                <div class="input-group">
+                    <label>Sumber Quantity</label>
+                    <span class="badge badge-info" style="width: max-content;">Menggunakan Qty Bersama</span>
+                </div>
+            </div>
+
+            <!-- Shopee -->
+            <div class="card" style="animation-delay: 0.5s;">
+                <h2>🛒 6. Shopee</h2>
+                <div class="input-group">
+                    <label>Margin (%)</label>
+                    <input type="number" id="shopee-margin" class="input-field" value="">
+                </div>
+                <div class="grid-cols-2">
+                    <div class="input-group">
+                        <label>Admin Shopee (%)</label>
+                        <input type="number" id="shopee-admin" class="input-field" value="9.5" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Biaya Layanan (Rp)</label>
+                        <input type="text" id="shopee-flat" class="input-field" value="Rp 1.250" data-raw="1250" oninput="formatCurrencyInput(this, false)">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Maksimal Rasio Shopee</label>
+                    <input type="number" id="shopee-ratio" class="input-field" value="7">
+                </div>
+                 <div class="input-group">
+                    <label>Sumber Quantity</label>
+                    <span class="badge badge-info" style="width: max-content;">Menggunakan Qty Bersama</span>
+                </div>
+            </div>
+        </div>
+
+        <button id="btn-hitung" class="btn btn-primary" onclick="calculateAll()" style="animation-delay: 0.6s; animation: fadeInUp 0.6s ease-out forwards; opacity: 0;">⚡ Hitung Harga Jual</button>
+
+        <!-- Hasil Output -->
+        <div id="results" style="display: none; margin-top: 3rem;">
+            <h1>Hasil Perhitungan & Validasi Akhir</h1>
+            
+            <div class="card">
+                <h2>🌐 Hasil Web Panel</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Qty</th>
+                                <th>Modal</th>
+                                <th>Margin Input</th>
+                                <th>Profit Bersih</th>
+                                <th>Harga Jual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="web-tbody"></tbody>
+                    </table>
+                </div>
+                <div id="web-validation" class="validation-box"></div>
+            </div>
+
+            <div class="card">
+                <h2>💬 Hasil WhatsApp</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Qty</th>
+                                <th>Modal</th>
+                                <th>Margin Input</th>
+                                <th>Margin Aktual</th>
+                                <th>Profit Bersih</th>
+                                <th>Harga Jual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wa-tbody"></tbody>
+                    </table>
+                </div>
+                <div id="wa-validation" class="validation-box"></div>
+            </div>
+
+            <div class="card">
+                <h2>🛒 Hasil Shopee</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Qty</th>
+                                <th>Modal</th>
+                                <th>Margin Input</th>
+                                <th>Margin Aktual</th>
+                                <th>Potongan Admin</th>
+                                <th>Biaya Layanan</th>
+                                <th>Adj</th>
+                                <th>Profit Bersih</th>
+                                <th>Harga Jual</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shopee-tbody"></tbody>
+                    </table>
+                </div>
+                <div id="shopee-validation" class="validation-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Utilities
+        const formatRp = (val) => `<span class="currency-symbol">Rp</span>${new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(val)}`;
+
+        function formatCurrencyInput(input, isUSD) {
+            let val = input.value;
+            if (isUSD) {
+                let raw = val.replace(/[^0-9.]/g, '');
+                let parts = raw.split('.');
+                if (parts.length > 2) raw = parts[0] + '.' + parts.slice(1).join('');
+                input.dataset.raw = raw;
+                input.value = raw ? '$' + raw : '';
+            } else {
+                let raw = val.replace(/[^0-9]/g, '');
+                input.dataset.raw = raw;
+                input.value = raw ? 'Rp ' + new Intl.NumberFormat('id-ID').format(raw) : '';
+            }
+        }
+
+        function toggleKurs() {
+            const curr = document.getElementById('currency').value;
+            document.getElementById('kurs-group').style.display = curr === 'USD' ? 'block' : 'none';
+            
+            const modalInput = document.getElementById('modal');
+            let raw = modalInput.dataset.raw;
+            if (raw) {
+                if (curr === 'IDR') {
+                    raw = Math.round(parseFloat(raw)).toString();
+                    modalInput.dataset.raw = raw;
+                }
+                formatCurrencyInput(modalInput, curr === 'USD');
+            } else {
+                modalInput.value = '';
+            }
+        }
+
+        function addQty() {
+            const container = document.getElementById(`shared-qty-container`);
+            const div = document.createElement('div');
+            div.className = 'qty-row';
+            div.innerHTML = `
+                <input type="number" class="shared-qty input-field" placeholder="Angka Qty">
+                <button class="btn btn-danger" onclick="removeQty(this)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeQty(btn) {
+            const row = btn.parentElement;
+            row.classList.add('removing');
+            setTimeout(() => row.remove(), 250);
+        }
+
+        function applyRounding(val, step) {
+            if (step === 0) return Math.round(val);
+            return Math.round(val / step) * step;
+        }
+
+        // Logic Auto-Repair Quantity Rules
+        function applyQuantityRules(qtys, minPrices, rounding) {
+            let prices = [...minPrices];
+            let changed = true;
+            let iterations = 0;
+            
+            while (changed && iterations < 1000) {
+                changed = false;
+                iterations++;
+
+                // Rule 0: Harga total harus selalu lebih besar jika Qty lebih besar
+                for (let i = 0; i < qtys.length - 1; i++) {
+                    if (prices[i] >= prices[i+1]) {
+                        prices[i+1] = prices[i] + (rounding > 0 ? rounding : 1);
+                        changed = true;
+                    }
+                }
+
+                // Rule 1: Unit Price Rule (Harga per unit harus semakin murah)
+                for (let i = 0; i < qtys.length - 1; i++) {
+                    let unitSmall = prices[i] / qtys[i];
+                    let unitLarge = prices[i+1] / qtys[i+1];
+                    
+                    if (unitLarge >= unitSmall) {
+                        let targetLarge = unitSmall * qtys[i+1];
+                        let step = rounding > 0 ? rounding : 1;
+                        
+                        let newLarge = Math.floor(targetLarge);
+                        if (rounding > 0) {
+                            newLarge = Math.floor(targetLarge / rounding) * rounding;
+                        }
+                        
+                        // Pastikan secara matematis nilainya strictly lebih kecil
+                        while ((newLarge / qtys[i+1]) >= unitSmall) {
+                            newLarge -= step;
+                        }
+
+                        // Prioritas 1: Turunkan harga Qty besar (tidak boleh dibawah Harga Minimum)
+                        if (newLarge >= minPrices[i+1]) {
+                            if (prices[i+1] !== newLarge) {
+                                prices[i+1] = newLarge;
+                                changed = true;
+                            }
+                        } else {
+                            // Prioritas 2: Jika mentok Harga Minimum, naikkan harga Qty kecil
+                            let targetSmall = prices[i+1] * (qtys[i] / qtys[i+1]);
+                            let newSmall = Math.ceil(targetSmall);
+                            
+                            if (rounding > 0) {
+                                newSmall = Math.ceil(targetSmall / rounding) * rounding;
+                            }
+                            
+                            // Pastikan strictly lebih besar
+                            while ((newSmall / qtys[i]) <= (prices[i+1] / qtys[i+1])) {
+                                newSmall += step;
+                            }
+
+                            if (prices[i] !== newSmall) {
+                                prices[i] = newSmall;
+                                changed = true;
+                            }
+                        }
+                    }
+                }
+
+                // Rule 2: Quantity Rule (Kombinasi belanja Qty kecil tidak boleh lebih murah)
+                for (let j = 1; j < qtys.length; j++) {
+                    let targetQty = qtys[j];
+                    
+                    // Dynamic Programming untuk mencari kombinasi termurah penyusun targetQty
+                    let dp = new Array(targetQty + 1).fill(Infinity);
+                    dp[0] = 0;
+                    for (let qty = 1; qty <= targetQty; qty++) {
+                        for (let i = 0; i < j; i++) {
+                            if (qty >= qtys[i]) {
+                                dp[qty] = Math.min(dp[qty], dp[qty - qtys[i]] + prices[i]);
+                            }
+                        }
+                    }
+                    let minComboCost = dp[targetQty];
+                    
+                    if (minComboCost <= prices[j]) { // Jika kombinasi lebih murah atau sama
+                        let step = rounding > 0 ? rounding : 1;
+                        let newLarge = minComboCost - step;
+                        if (rounding > 0) {
+                            newLarge = Math.floor(newLarge / rounding) * rounding;
+                        }
+                        
+                        // Prioritas 1: Turunkan Harga Qty besar
+                        if (newLarge >= minPrices[j]) {
+                            if (prices[j] !== newLarge) {
+                                prices[j] = newLarge;
+                                changed = true;
+                            }
+                        } else {
+                            // Prioritas 2: Jika mentok, naikkan harga Qty kecil (Cari yang paling membebani)
+                            let minUnit = Infinity;
+                            let minIndex = -1;
+                            for (let k = 0; k < j; k++) {
+                                if (prices[k] / qtys[k] < minUnit) {
+                                    minUnit = prices[k] / qtys[k];
+                                    minIndex = k;
+                                }
+                            }
+                            if (minIndex !== -1) {
+                                prices[minIndex] += step;
+                                changed = true;
+                            }
+                        }
+                    }
+                }
+            }
+            return prices;
+        }
+
+        // Logic Auto-Repair Shopee (Rasio)
+        function applyShopeeRules(qtys, minPrices, rounding, maxRatio) {
+            let prices = [...minPrices];
+            let changed = true;
+            let iterations = 0;
+            
+            while (changed && iterations < 100) {
+                changed = false;
+                iterations++;
+
+                prices = applyQuantityRules(qtys, prices, rounding);
+
+                let minPrice = prices[0];
+                let maxPrice = prices[prices.length - 1];
+                
+                if (maxPrice / minPrice > maxRatio) {
+                    let newMinPrice = Math.ceil(maxPrice / maxRatio);
+                    if (rounding > 0) {
+                        newMinPrice = applyRounding(newMinPrice, rounding);
+                        while (maxPrice / newMinPrice > maxRatio) {
+                            newMinPrice += rounding;
+                        }
+                    }
+                    
+                    if (prices[0] !== newMinPrice) {
+                        prices[0] = newMinPrice;
+                        changed = true; // Ulangi seluruh rule setelah harga terkecil dinaikkan
+                    }
+                }
+            }
+            return prices;
+        }
+
+        // Main Calculation Controller
+        function calculateAll() {
+            const btn = document.getElementById('btn-hitung');
+            const originalText = btn.innerHTML;
+            
+            // Aktifkan efek loading
+            btn.innerHTML = '<div class="spinner"></div> Menganalisis...';
+            btn.disabled = true;
+
+            // setTimeout digunakan untuk memberi waktu browser merender efek loading
+            setTimeout(() => {
+                const currency = document.getElementById('currency').value;
+                let modalRaw = document.getElementById('modal').dataset.raw;
+                let modalInput = parseFloat(modalRaw) || 0;
+                
+                if(currency === 'USD') {
+                    let kursRaw = document.getElementById('kurs').dataset.raw;
+                    const kurs = parseFloat(kursRaw) || 0;
+                    modalInput = modalInput * kurs;
+                }
+                const rounding = parseInt(document.getElementById('rounding').value) || 0;
+
+                const baseCost = modalInput / 1000;
+
+                document.getElementById('results').style.display = 'block';
+
+                calculateWeb(modalInput, rounding);
+                calculateWA(baseCost, rounding);
+                calculateShopee(baseCost, rounding);
+                
+                // Scroll otomatis ke hasil
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Kembalikan tombol ke state awal
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 500); 
+        }
+
+        function calculateWeb(modal, rounding) {
+            const margin = parseFloat(document.getElementById('web-margin').value) || 0;
+            let targetPrice = modal * (1 + margin/100);
+            let finalPrice = applyRounding(targetPrice, rounding);
+            let profit = finalPrice - modal;
+
+            const tbody = document.getElementById('web-tbody');
+            tbody.innerHTML = `
+                <tr>
+                    <td style="font-weight:600;">1000</td>
+                    <td>${formatRp(modal)}</td>
+                    <td><span class="badge badge-neutral">${margin}%</span></td>
+                    <td class="text-success" style="font-weight:600;">+${formatRp(profit)}</td>
+                    <td class="price-highlight">${formatRp(finalPrice)}</td>
+                </tr>
+            `;
+            document.getElementById('web-validation').innerHTML = `<div class="val-item text-success" style="animation-delay: 0.1s;">✅ Quantity Rule (N/A - Hanya 1 Qty)</div>`;
+        }
+
+        function getSortedQtys(selector) {
+            let qtys = Array.from(document.querySelectorAll(selector))
+                .map(el => parseInt(el.value))
+                .filter(v => !isNaN(v) && v > 0);
+            return [...new Set(qtys)].sort((a,b) => a - b);
+        }
+
+        function calculateWA(baseCost, rounding) {
+            const margin = parseFloat(document.getElementById('wa-margin').value) || 0;
+            const qtys = getSortedQtys('.shared-qty'); // Menggunakan Qty Bersama
+
+            if (qtys.length === 0) {
+                document.getElementById('wa-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem;">Silakan tambahkan Qty terlebih dahulu</td></tr>';
+                document.getElementById('wa-validation').innerHTML = '';
+                return;
+            }
+
+            // Step 1: Hitung Harga Minimum (Batas Bawah)
+            let initialPrices = qtys.map(q => applyRounding((baseCost * q) * (1 + margin/100), rounding));
+            
+            // Step 2 & 3: Auto Repair Unit Price & Quantity Rule
+            let finalPrices = applyQuantityRules(qtys, [...initialPrices], rounding);
+
+            const tbody = document.getElementById('wa-tbody');
+            tbody.innerHTML = '';
+            for (let i = 0; i < qtys.length; i++) {
+                let cost = baseCost * qtys[i];
+                let profit = finalPrices[i] - cost;
+                
+                // Margin Aktual = (Profit / Cost) * 100
+                let actualMargin = (profit / cost) * 100;
+                actualMargin = actualMargin % 1 === 0 ? actualMargin : actualMargin.toFixed(2);
+
+                tbody.innerHTML += `
+                    <tr style="animation-delay: ${i * 0.05}s">
+                        <td style="font-weight:600;">${qtys[i]}</td>
+                        <td>${formatRp(cost)}</td>
+                        <td><span class="badge badge-neutral">${margin}%</span></td>
+                        <td><span class="badge badge-success">${actualMargin}%</span></td>
+                        <td class="text-success" style="font-weight:600;">+${formatRp(profit)}</td>
+                        <td class="price-highlight">${formatRp(finalPrices[i])}</td>
+                    </tr>
+                `;
+            }
+
+            renderValidation('wa-validation', false);
+        }
+
+        function calculateShopee(baseCost, rounding) {
+            const margin = parseFloat(document.getElementById('shopee-margin').value) || 0;
+            const admin = parseFloat(document.getElementById('shopee-admin').value) || 0;
+            let flatRaw = document.getElementById('shopee-flat').dataset.raw;
+            const flat = parseFloat(flatRaw) || 0;
+            const ratio = parseFloat(document.getElementById('shopee-ratio').value) || 7;
+            const qtys = getSortedQtys('.shared-qty'); // Menggunakan Qty Bersama
+
+            if (qtys.length === 0) {
+                document.getElementById('shopee-tbody').innerHTML = '<tr><td colspan="9" style="text-align:center; padding: 2rem;">Silakan tambahkan Qty terlebih dahulu</td></tr>';
+                document.getElementById('shopee-validation').innerHTML = '';
+                return;
+            }
+
+            // Step 1: Hitung Harga Minimum (Batas Bawah)
+            let initialPrices = qtys.map(q => {
+                let cost = baseCost * q;
+                let targetNet = cost * (1 + margin/100);
+                let p = (targetNet + flat) / (1 - admin/100);
+                return applyRounding(p, rounding);
+            });
+
+            // Step 2 & 3 & Rasio: Auto Repair Seluruh Rule Shopee
+            let finalPrices = applyShopeeRules(qtys, [...initialPrices], rounding, ratio);
+
+            const tbody = document.getElementById('shopee-tbody');
+            tbody.innerHTML = '';
+            for (let i = 0; i < qtys.length; i++) {
+                let minP = initialPrices[i];
+                let price = finalPrices[i];
+                let adj = price - minP; // Total Penyesuaian Harga
+                let adjText = adj > 0 ? `<span class="badge badge-info">+${formatRp(adj)}</span>` : `<span class="badge badge-neutral">Rp0</span>`;
+
+                let cost = baseCost * qtys[i];
+                let adminFee = price * admin / 100;
+                let profit = price - cost - adminFee - flat;
+                
+                // Margin Aktual = (Profit / Cost) * 100
+                let actualMargin = (profit / cost) * 100;
+                actualMargin = actualMargin % 1 === 0 ? actualMargin : actualMargin.toFixed(2);
+
+                tbody.innerHTML += `
+                    <tr style="animation-delay: ${i * 0.05}s">
+                        <td style="font-weight:600;">${qtys[i]}</td>
+                        <td>${formatRp(cost)}</td>
+                        <td><span class="badge badge-neutral">${margin}%</span></td>
+                        <td><span class="badge badge-success">${actualMargin}%</span></td>
+                        <td class="text-danger">-${formatRp(adminFee)}</td>
+                        <td class="text-danger">-${formatRp(flat)}</td>
+                        <td>${adjText}</td>
+                        <td class="text-success" style="font-weight:600;">+${formatRp(profit)}</td>
+                        <td class="price-highlight">${formatRp(price)}</td>
+                    </tr>
+                `;
+            }
+
+            renderValidation('shopee-validation', true);
+        }
+
+        // Render Status Validasi Akhir (Tidak lagi menampilkan error log)
+        function renderValidation(elementId, isShopee = false) {
+            const valDiv = document.getElementById(elementId);
+            
+            let html = `
+                <div class="val-item text-success" style="animation-delay: 0.1s;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg> 
+                    Unit Price Rule berhasil
+                </div>
+                <div class="val-item text-success" style="animation-delay: 0.2s;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg> 
+                    Quantity Rule berhasil
+                </div>
+                <div class="val-item text-success" style="animation-delay: 0.3s;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg> 
+                    Auto Repair berhasil
+                </div>
+            `;
+            
+            if (isShopee) {
+                html += `
+                <div class="val-item text-success" style="animation-delay: 0.4s;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg> 
+                    Shopee Ratio berhasil
+                </div>`;
+            }
+            
+            html += `
+                <div class="val-item text-success fw-bold" style="animation-delay: 0.5s; color: #047857;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> 
+                    Seluruh validasi berhasil
+                </div>
+            `;
+            
+            valDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
